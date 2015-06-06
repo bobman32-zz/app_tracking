@@ -1,0 +1,60 @@
+<a href="/refresh_list"> Refresh List </a>
+
+
+<div class="container">
+  <div class="row"
+    <div class="col-md-6">
+    <h1> Android apps<%= @response_code %></h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>App_Name</th>
+            <th>Publisher Name</th>
+            <th>Current Version</th>
+            <th>Updated Date</th>
+            <th>Details</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @all_android_apps.each do |app|  %>
+          <tr>
+            <th><%= app.versions.last.app_name %><img src="<%= app.versions.last.app_icon_url %>" width=60 ></th>
+            <th><%= app.versions.last.publisher_name %></th>
+            <th><%= app.versions.last.current_version %></th>
+            <th><%= app.versions.last.updated_date %></th>
+            <th>
+              <div class="btn-group btn-group-justified">
+                <a href="/app/<%= app.id %>" class="btn btn-primary">
+                  <i class="fa fa-search-plus"></i>
+                </a>
+              </div>
+            </th>
+            <th>
+              <div class="btn-group btn-group-justified">
+                <a href="/delete_app/<%= app.id %>" class="btn btn-danger" rel="nofollow">
+                  <i class="fa fa-trash-o"></i>
+                </a>
+              </div>
+            </th>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="=col-md-6">
+    <h1> iOS apps tracked </h1>
+
+
+    <p><% @all_android_apps.each do |apps|  %></p>
+    <p> <%= apps.app_name %> </p>
+    <p><%= apps.os %></p>
+    <p><%= apps.id %></p>
+    <p><%= apps.created_at %></p>
+    <%end %>
+  </div>
+</div>
+
+
+

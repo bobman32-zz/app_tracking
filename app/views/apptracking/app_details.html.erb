@@ -1,0 +1,62 @@
+
+<style>
+
+/*The GPlay scraper response for "whats new" needs to have some elements hidden for a better appearance*/
+h1.heading {
+   visibility: hidden;
+   font-size: 0.1%;
+}
+button.play-button {
+   visibility: hidden;
+   font-size: 0.1%;
+}
+
+.table th {
+   text-align: center;
+}
+.table tbody tr td {
+   vertical-align: middle;
+}
+
+</style>
+
+
+
+<div class='container'>
+  <div class='row'>
+
+  </div>
+
+  <div class='row'>
+    <table class='table'>
+      <thead>
+        <tr>
+          <th>Updated Date</th>
+          <th>Version</th>
+          <th>Release Notes</th>
+          <th>Cumulative Rating at Release</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @app_versions.sort_by(&:created_at).reverse.each do |version| %>
+        <tr>
+          <td>
+            <%= version.updated_date %>
+          </td>
+          <td>
+          <%= version.current_version %>
+          </td>
+          <td>
+            <%=  sanitize version.whats_new %>
+          </td>
+          <td>
+            <%= version.rating %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+
+
+    </table>
+  </div>
+</div>

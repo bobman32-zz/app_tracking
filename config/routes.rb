@@ -17,6 +17,11 @@ Rails.application.routes.draw do
   get("/week", { :controller => "apptracking", :action => "week" })
 
   get "/process_new_android/:androidid" => 'apptracking#new_android', :constraints => {:androidid => /[\w+\.]+/ }
+  #contraints allows me to pass a dot in the param since android package names have one.
+
+  get("/process_new_ios/:iosid", { :controller => "apptracking", :action => "new_ios" })
+
+  get("/app_details/:app_id", { :controller => "apptracking", :action => "app_details" })
 
 root 'apptracking#apps_tracked'
 

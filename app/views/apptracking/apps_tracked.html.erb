@@ -1,58 +1,119 @@
+<style>
+.table th {
+   text-align: center;
+}
+.table tbody tr td {
+   vertical-align: middle;
+}
+
+</style>
+
+<div class="page-header">
+  <h3>
+    Your Tracked Apps
+  </h3>
+</div>
+
 <a href="/refresh_list"> Refresh List </a>
 
-
 <div class="container">
-  <div class="row"
-    <div class="col-md-6">
-    <h1> Android apps<%= @response_code %></h1>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>App_Name</th>
-            <th>Publisher Name</th>
-            <th>Current Version</th>
-            <th>Updated Date</th>
-            <th>Details</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-        <% @all_android_apps.each do |app|  %>
-          <tr>
-            <th><%= app.versions.last.app_name %><img src="<%= app.versions.last.app_icon_url %>" width=60 ></th>
-            <th><%= app.versions.last.publisher_name %></th>
-            <th><%= app.versions.last.current_version %></th>
-            <th><%= app.versions.last.updated_date %></th>
-            <th>
-              <div class="btn-group btn-group-justified">
-                <a href="/app/<%= app.id %>" class="btn btn-primary">
-                  <i class="fa fa-search-plus"></i>
-                </a>
-              </div>
-            </th>
-            <th>
-              <div class="btn-group btn-group-justified">
-                <a href="/delete_app/<%= app.id %>" class="btn btn-danger" rel="nofollow">
-                  <i class="fa fa-trash-o"></i>
-                </a>
-              </div>
-            </th>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
+  <div class="row isotope-container">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading text-center">
+          <img src="/assets/android.png" width=100 align="centered">
+        </div>
+        <div class ='table-responsive'>
+          <table class="table">
+            <thead>
+              <tr>
+                <th> </th>
+                <th>App Name</th>
+                <th>Market</th>
+                <th>Current Version</th>
+                <th>Update Date</th>
+                <th class='col-sm-1'>Details</th>
+                <th class='col-sm-1'>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @all_android_apps.where({:os => "android"}).each do |app|  %>
+              <tr>
+                <td ><img src="<%= app.versions.last.app_icon_url %>" width=60></td>
+                <td><%= app.versions.last.app_name %></td>
+                <td><%= app.versions.last.market %></td>
+                <td><%= app.versions.last.current_version %></td>
+                <td><%= app.versions.last.updated_date %></td>
+                <td>
+                  <div class="btn-group btn-group-justified" width=10px>
+                    <a href="/app_details/<%= app.id %>" class="btn btn-primary">
+                      <i class="fa fa-search-plus"></i>
+                    </a>
+                  </div>
+                </td>
+                <td>
+                  <div class="btn-group btn-group-justified">
+                    <a href="/delete_app/<%= app.id %>" class="btn btn-danger" rel="nofollow">
+                      <i class="fa fa-trash-o"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="=col-md-6">
-    <h1> iOS apps tracked </h1>
 
 
-    <p><% @all_android_apps.each do |apps|  %></p>
-    <p> <%= apps.app_name %> </p>
-    <p><%= apps.os %></p>
-    <p><%= apps.id %></p>
-    <p><%= apps.created_at %></p>
-    <%end %>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading text-center">
+          <img src="/assets/ios.png" width=100>
+        </div>
+        <div class ='table-responsive'>
+          <table class="table">
+            <thead>
+              <tr>
+                <th> </th>
+                <th align='center'>App Name</th>
+                <th>Market</th>
+                <th>Current Version</th>
+                <th>Updated Date</th>
+                <th class='col-sm-1'>Details</th>
+                <th class='col-sm-1'>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @all_android_apps.where({:os => "ios"}).each do |app|  %>
+              <tr>
+                <td><img src="<%= app.versions.last.app_icon_url %>" width=60></td>
+                <td><%= app.versions.last.app_name %></td>
+                <td><%= app.versions.last.market %></td>
+                <td><%= app.versions.last.current_version %></td>
+                <td><%= app.versions.last.updated_date %></td>
+                <td>
+                  <div class="btn-group btn-group-justified">
+                    <a href="/app_details/<%= app.id %>" class="btn btn-primary">
+                      <i class="fa fa-search-plus"></i>
+                    </a>
+                  </div>
+                </td>
+                <td>
+                  <div class="btn-group btn-group-justified">
+                    <a href="/delete_app/<%= app.id %>" class="btn btn-danger" rel="nofollow">
+                      <i class="fa fa-trash-o"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+         </table>
+       </div>
+      </div>
+    </div>
   </div>
 </div>
 

@@ -79,7 +79,7 @@
                 <th align='center'>App Name</th>
                 <th>Market</th>
                 <th>Current Version</th>
-                <th>Updated Date</th>
+                <th>Updated Date*</th>
                 <th class='col-sm-1'>Details</th>
                 <th class='col-sm-1'>Delete</th>
               </tr>
@@ -110,8 +110,11 @@
               <% end %>
             </tbody>
          </table>
+
        </div>
+
       </div>
+        <p>*iOS "Updated Date" is not available in the API response so it is set based on when the version record is created. Since all Apps are processed through the API daily this means the date will typically be accurate, however for newly added apps the "Updated Date" may not be accurate</p>
     </div>
   </div>
 </div>

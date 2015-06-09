@@ -1,11 +1,33 @@
 
 
+
 <% if @new_app.errors.any? %>
-  <% @new_app.errors.full_messages.each do |message| %>
+    <% @new_app.errors.full_messages.each do |message| %>
     <div class="alert alert-dismissable alert-danger">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <%= message %>
     </div>
+    <% end %>
+  <% else %>
+
+
+  <% if @new_user_app_join.errors.any? %>
+      <% @new_user_app_join.errors.full_messages.each do |message| %>
+      <div class="alert alert-dismissable alert-danger">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <%= message %>
+      </div>
+      <% end %>
+    <% else %>
+
+    <% if @new_user_app_join2.errors.any? %>
+        <% @new_user_app_join2.errors.full_messages.each do |message| %>
+        <div class="alert alert-dismissable alert-danger">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <%= message %>
+        </div>
+        <% end %>
+    <% end %>
   <% end %>
 <% end %>
 
@@ -20,7 +42,7 @@
   </div>
 </form>
 
-<%= @a %>
+
 
 <form class="form-horizontal" action="/add_ios">
   <div class="form-group">

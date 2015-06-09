@@ -9,6 +9,8 @@ class ApptrackingController < ApplicationController
 
   def add_app
     @new_app = App.new
+    @new_user_app_join=Join.new
+    @new_user_app_join2=Join.new
 
   end
 
@@ -94,7 +96,7 @@ class ApptrackingController < ApplicationController
   end
 
   def apps_tracked
-    @all_android_apps = App.where({:user_id => current_user.id})
+    @all_android_apps = current_user.apps.all
     @all_ios_apps = 0
 
 
@@ -102,7 +104,7 @@ class ApptrackingController < ApplicationController
 
   def add_android
 
-#My attempt to validate on whether package name is valid
+    #My attempt to validate on whether package name is valid
     #url = URI.parse("http://www.googsdfsdfsle.com/")
     #req = Net::HTTP.new(url.host, url.port)
     #res = req.request_head(url.path)
@@ -110,17 +112,36 @@ class ApptrackingController < ApplicationController
 
     app_name = params["androidid"]
 
-    @new_app= App.new
-    @new_app.app_name = app_name
-    @new_app.os = "android"
-    @new_app.user_id = current_user.id
+    @new_app = App.new
 
-    if @new_app.save
-      redirect_to "/process_new_android/"+app_name, :notice => "App Added Successfully!"
-    else
+    @new_user_app_join=Join.new
+
+    if App.find_by(app_name: app_name).nil?
+      @new_user_app_join=Join.new
+      @new_app.app_name = app_name
+      @new_app.os = "android"
+      if @new_app.save
+          @new_user_app_join.user_id=current_user.id
+          @new_user_app_join.app_id=@new_app.id
+          if @new_user_app_join.save
+            redirect_to "/process_new_android/"+app_name, :notice => "App Added Successfully!" and return
+            else
+          end
+        else
+      end
+        else
+          @a=App.find_by(app_name: app_name)
+          @new_user_app_join2=Join.new
+          @new_user_app_join2.user_id=current_user.id
+          @new_user_app_join2.app_id=@a.id
+          if @new_user_app_join2.save
+            redirect_to "/apps_tracked", :notice => "App Added Successfully!" and return
+            else
+          end
+      end
       render 'add_app'
     end
-  end
+
 
   def new_android
 
@@ -147,7 +168,7 @@ class ApptrackingController < ApplicationController
     app_bot = MarketBot::Android::App.new(package_name)
     app_bot.update
 
-    a=App.where({:user_id => current_user.id}).find_by app_name: package_name
+    a=App.find_by app_name: package_name
     app_id = a.id
 
     n=Version.new
@@ -157,7 +178,7 @@ class ApptrackingController < ApplicationController
     n.publisher_name = app_bot.developer
     n.current_version = app_bot.current_version
     n.description = app_bot.description
-    n.updated_date = app_bot.updated
+    n.updated_date = DateTime.parse(app_bot.updated).strftime('%B %e, %Y ')
     n.whats_new = app_bot.whats_new
     n.rating = app_bot.rating
     n.app_id = app_id
@@ -168,63 +189,75 @@ class ApptrackingController < ApplicationController
   end
 
  def add_ios
-    app_name = params["iosid"]
-    @new_app= App.new
-    @new_app.app_name = app_name
-    @new_app.os = "ios"
-    @new_app.user_id = current_user.id
+  app_name = params["iosid"]
 
-    if @new_app.save
-      redirect_to "/process_new_ios/"+app_name, :notice => "App Added Successfully!"
-    else
+      if App.find_by(app_name: app_name).nil?
+      @new_app= App.new
+      @new_app.app_name = app_name
+      @new_app.os = "ios"
+      if @new_app.save
+          @new_user_app_join=Join.new
+          @new_user_app_join.user_id=current_user.id
+          @new_user_app_join.app_id=@new_app.id
+          if @new_user_app_join.save
+            redirect_to "/process_new_ios/"+app_name, :notice => "App Added Successfully!" and return
+            else
+          end
+        else
+      end
+        else
+          @a=App.find_by(app_name: app_name)
+          @new_user_app_join2=Join.new
+          @new_user_app_join2.user_id=current_user.id
+          @new_user_app_join2.app_id=@a.id
+          if @new_user_app_join2.save
+            redirect_to "/apps_tracked", :notice => "App Added Successfully!" and return
+            else
+          end
+      end
       render 'add_app'
     end
-  end
+
 
   def new_ios
     ios_id = params["iosid"]
 
-    a=App.where({:user_id => current_user.id}).find_by app_name: ios_id
+    a=App.find_by app_name: ios_id
     app_id = a.id
 
 
     parsed_data = JSON.parse(open("https://itunes.apple.com/lookup?id="+ios_id).read)
 
-    n=Version.new
-    n.app_name = parsed_data["results"][0]["trackName"]
-    n.app_icon_url = parsed_data["results"][0]["artworkUrl60"]
-    n.market = parsed_data["results"][0]["primaryGenreName"]
-    n.publisher_name = parsed_data["results"][0]["sellerName"]
-    n.current_version = parsed_data["results"][0]["version"]
-    n.description = parsed_data["results"][0]["description"]
-    n.updated_date = Date.today.strftime('%B %e, %Y ')
-    #search API currently doesn't provide updated date, so this just uses todays date assuming this action in run daily
-    n.whats_new = parsed_data["results"][0]["releaseNotes"]
-    n.rating = parsed_data["results"][0]["averageUserRating"]
-    n.app_id = app_id
-    n.save
+      n=Version.new
+      n.app_name = parsed_data["results"][0]["trackName"]
+      n.app_icon_url = parsed_data["results"][0]["artworkUrl60"]
+      n.market = parsed_data["results"][0]["primaryGenreName"]
+      n.publisher_name = parsed_data["results"][0]["sellerName"]
+      n.current_version = parsed_data["results"][0]["version"]
+      n.description = parsed_data["results"][0]["description"]
+      n.updated_date = Date.today.strftime('%B %e, %Y ')
+      #search API currently doesn't provide updated date, so this just uses todays date assuming this action in run daily
+      n.whats_new = parsed_data["results"][0]["releaseNotes"]
+      n.rating = parsed_data["results"][0]["averageUserRating"]
+      n.app_id = app_id
+      n.save
 
     redirect_to "/apps_tracked"
   end
   def week
 
-    @today = Time.now
-    @yesterday =Time.now-1.day
-    @twodaysago=Time.now-2.day
-    @threedaysago=Time.now-3.day
-    @fourdaysago= Time.now-4.day
-    @fivedaysago= Time.now-5.day
-    @sixdaysago= Time.now-6.day
-    @sevendaysago= Time.now-7.day
+    @today = Date.today
+    @yesterday =Date.today-1.day
+    @twodaysago=Date.today-2.day
+    @threedaysago=Date.today-3.day
+    @fourdaysago= Date.today-4.day
+    @fivedaysago= Date.today-5.day
+    @sixdaysago= Date.today-6.day
+    @sevendaysago= Date.today-7.day
 
-    @all_android_apps = App.where({:user_id => current_user.id})
+    @android_apps= current_user.apps.where({:os => 'android'})
+    @ios_apps= current_user.apps.where({:os => 'ios'})
 
-  #@apps = current_user.versions.where(["created_at > ?", @twodaysago])
-
-  #all_android_apps = App.where({:user_id => current_user.id})
-
-
-  #a = @all_android_apps.version.find(:all, :conditions => ["DATE(created_at) = ?", Date.today])
 
 
 end

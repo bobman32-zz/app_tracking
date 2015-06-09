@@ -7,7 +7,7 @@ class CreateVersions < ActiveRecord::Migration
       t.string :publisher_name
       t.string :current_version
       t.text :description
-      t.string :updated_date
+      t.datetime :updated_date
       t.string :vertical
 
       t.timestamps null: false

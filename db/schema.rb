@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150607232642) do
+ActiveRecord::Schema.define(version: 20150609042802) do
 
   create_table "apps", force: :cascade do |t|
     t.string   "app_name"
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(version: 20150607232642) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
+  end
+
+  create_table "joins", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "app_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -47,7 +54,7 @@ ActiveRecord::Schema.define(version: 20150607232642) do
     t.string   "publisher_name"
     t.string   "current_version"
     t.text     "description"
-    t.string   "updated_date"
+    t.datetime "updated_date"
     t.string   "vertical"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false

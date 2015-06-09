@@ -4,6 +4,7 @@ require 'net/http'
 require 'rubygems'
 require 'market_bot'
 require 'date'
+require "uri"
 
 class ApptrackingController < ApplicationController
 
@@ -106,14 +107,27 @@ class ApptrackingController < ApplicationController
 
   def add_android
 
-    #My attempt to validate on whether package name is valid
-    #url = URI.parse("http://www.googsdfsdfsle.com/")
-    #req = Net::HTTP.new(url.host, url.port)
-    #res = req.request_head(url.path)
-    #if res.code =="200"
-
     app_name = params["androidid"]
 
+    package_url= "https://play.google.com/store/apps/details?id="+app_name+"&hl=en"
+
+    uri = URI.parse(package_url)
+    req = Net::HTTP.new(uri.host, uri.port)
+    req.use_ssl = true
+    req.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    res = req.get(uri.request_uri)
+     if res.code =="200"
+        redirect_to "/add_android_valid/"+app_name
+      else
+        redirect_to "/add_app", :alert => "Invalid Android Package Name"
+
+      end
+  end
+
+
+  def add_android_valid
+
+    app_name = params["androidid"]
     @new_app = App.new
 
     @new_user_app_join=Join.new
@@ -146,19 +160,19 @@ class ApptrackingController < ApplicationController
 
 # Refactor with this code below
 
-# app = App.find_by(:app_name => app_name)
-# if app == nil
-#   app = App.new
-#   app.app_name = app_name
-#   app.os = "android"
-#   app.save
-# end
+ # @new_app = App.find_by(:app_name => app_name)
+ # if @app == nil
+ #   @app = App.new
+ #   @app.app_name = app_name
+ #   @app.os = "android"
+ #   @app.save
+ # end
 
-# @user_app = UserApp.new
-# @user_app.app_id = app.id
-# @user_app.user_id = current_user.id
+ # @new_user_app_join = Join.new
+ # @new_user_app_join.app_id = @app.id
+ # @new_user_app_join.user_id = current_user.id
 
-# if @user_app.save
+ # if @new_user_app_joine.save
 
 
   def new_android
@@ -206,7 +220,26 @@ class ApptrackingController < ApplicationController
 
   end
 
- def add_ios
+  def add_ios
+
+    app_name = params["iosid"]
+
+    id_url= "https://itunes.apple.com/us/app/orbitz-flights-hotels-cars/id"+app_name+"?mt=8"
+
+    uri = URI.parse(id_url)
+    req = Net::HTTP.new(uri.host, uri.port)
+    req.use_ssl = true
+    req.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    res = req.get(uri.request_uri)
+     if res.code =="200"
+        redirect_to "/add_ios_valid/"+app_name
+      else
+        redirect_to "/add_app", :alert => "Invalid ITunes App ID"
+
+      end
+  end
+
+ def add_ios_valid
   app_name = params["iosid"]
 
       if App.find_by(app_name: app_name).nil?

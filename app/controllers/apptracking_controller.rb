@@ -89,7 +89,9 @@ class ApptrackingController < ApplicationController
 
 
   def delete_app
-    app = App.find(params[:app_id])
+    app_id = params["app_id"].to_i
+    user_id=current_user.id
+    app = Join.find_by(:app_id => app_id, :user_id => user_id)
     app.destroy
     redirect_to "/apps_tracked", :notice => "App Deleted"
 
@@ -141,6 +143,22 @@ class ApptrackingController < ApplicationController
       end
       render 'add_app'
     end
+
+# Refactor with this code below
+
+# app = App.find_by(:app_name => app_name)
+# if app == nil
+#   app = App.new
+#   app.app_name = app_name
+#   app.os = "android"
+#   app.save
+# end
+
+# @user_app = UserApp.new
+# @user_app.app_id = app.id
+# @user_app.user_id = current_user.id
+
+# if @user_app.save
 
 
   def new_android

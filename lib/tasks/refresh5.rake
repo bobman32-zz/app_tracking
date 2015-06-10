@@ -31,6 +31,7 @@ namespace :refresh do
             n.save
 
           else
+          end
         else
         end
     end
@@ -66,7 +67,4 @@ namespace :refresh do
         else
       end
   end
-
-
-
 end

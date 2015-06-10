@@ -1,4 +1,4 @@
-namespace :refresh do
+namespace :refresh4 do
   desc "refresh app lists"
   task app_refresh: :environment do
     #refresh Android apps

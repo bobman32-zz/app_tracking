@@ -1,3 +1,6 @@
+require 'open-uri'
+require 'json'
+
 namespace :refresh2 do
   desc "refresh app lists"
   task app_refresh: :environment do

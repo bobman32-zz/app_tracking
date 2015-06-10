@@ -1,3 +1,6 @@
+require 'open-uri'
+require 'json'
+
 namespace :refresh1 do
   desc "refresh app lists"
   task app_refresh: :environment do
@@ -45,25 +48,22 @@ namespace :refresh1 do
           #checks for current_version since updated date is not available in Apple API
 
           if app.versions.last.current_version != parsed_data["results"][0]["version"]
-          app_id=app.id
-          n=Version.new
-          n.app_name = parsed_data["results"][0]["trackName"]
-          n.app_icon_url = parsed_data["results"][0]["artworkUrl60"]
-          n.market = parsed_data["results"][0]["primaryGenreName"]
-          n.publisher_name = parsed_data["results"][0]["sellerName"]
-          n.current_version = parsed_data["results"][0]["version"]
-          n.description = parsed_data["results"][0]["description"]
-          n.updated_date = Date.today.strftime('%B %e, %Y ')
-          #search API currently doesn't provide updated date, so this just uses todays date assuming this action in run daily
-          n.whats_new = parsed_data["results"][0]["releaseNotes"]
-          n.rating = parsed_data["results"][0]["averageUserRating"]
-          n.app_id = app_id
-          n.save
+            app_id=app.id
+            n=Version.new
+            n.app_name = parsed_data["results"][0]["trackName"]
+            n.app_icon_url = parsed_data["results"][0]["artworkUrl60"]
+            n.market = parsed_data["results"][0]["primaryGenreName"]
+            n.publisher_name = parsed_data["results"][0]["sellerName"]
+            n.current_version = parsed_data["results"][0]["version"]
+            n.description = parsed_data["results"][0]["description"]
+            n.updated_date = Date.today.strftime('%B %e, %Y ')
+            #search API currently doesn't provide updated date, so this just uses todays date assuming this action in run daily
+            n.whats_new = parsed_data["results"][0]["releaseNotes"]
+            n.rating = parsed_data["results"][0]["averageUserRating"]
+            n.app_id = app_id
+            n.save
           end
       end
+    end
   end
-
-
-
-end
 end

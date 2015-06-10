@@ -29,10 +29,7 @@ namespace :refresh do
             n.rating = app_bot.rating
             n.app_id = app_id
             n.save
-
-          else
           end
-        else
         end
     end
 
@@ -62,12 +59,11 @@ namespace :refresh do
           n.rating = parsed_data["results"][0]["averageUserRating"]
           n.app_id = app_id
           n.save
-            else
           end
-        else
       end
   end
 
 
 
+end
 end

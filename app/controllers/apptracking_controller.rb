@@ -242,6 +242,8 @@ class ApptrackingController < ApplicationController
     @android_apps= current_user.apps.where({:os => 'android'})
     @ios_apps= current_user.apps.where({:os => 'ios'})
 
+def travel_apps
+end
 
 
 end

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
 
 
-
+ get("/travel_apps", { :controller => "apptracking", :action => "travel_apps" })
 
   get("/apps_tracked", { :controller => "apptracking", :action => "apps_tracked" })
 

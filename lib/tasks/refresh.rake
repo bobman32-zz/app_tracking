@@ -7,29 +7,31 @@ namespace :refresh do
       a.each do |app|
 
 
+
         package_name = app.app_name
 
-        app_bot = MarketBot::Android::App.new(package_name)
-        app_bot.update
+          app_bot = MarketBot::Android::App.new(package_name)
+          app_bot.update
 
-        #checks for updated date. Version numbers are often 'varies by device'
+          #checks for updated date. Version numbers are often 'varies by device'
 
-        if app.versions.last.updated_date != app_bot.updated
-          app_id=app.id
-          n=Version.new
-          n.app_name = app_bot.title
-          n.app_icon_url = app_bot.banner_icon_url
-          n.market = app_bot.category
-          n.publisher_name = app_bot.developer
-          n.current_version = app_bot.current_version
-          n.description = app_bot.description
-          n.updated_date = app_bot.updated
-          n.whats_new = app_bot.whats_new
-          n.rating = app_bot.rating
-          n.app_id = app_id
-          n.save
+          if app.versions.last.updated_date != app_bot.updated
+            app_id=app.id
+            n=Version.new
+            n.app_name = app_bot.title
+            n.app_icon_url = app_bot.banner_icon_url
+            n.market = app_bot.category
+            n.publisher_name = app_bot.developer
+            n.current_version = app_bot.current_version
+            n.description = app_bot.description
+            n.updated_date = app_bot.updated
+            n.whats_new = app_bot.whats_new
+            n.rating = app_bot.rating
+            n.app_id = app_id
+            n.save
 
           else
+        else
         end
     end
 

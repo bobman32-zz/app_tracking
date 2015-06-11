@@ -18,7 +18,7 @@ namespace :refresh2 do
 
           #checks for updated date. Version numbers are often 'varies by device'
 
-          if app.versions.first.updated_date != app_bot.updated
+          if app.versions.last.updated_date != app_bot.updated
             app_id=app.id
             n=Version.new
             n.app_name = app_bot.title

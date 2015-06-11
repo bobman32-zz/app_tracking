@@ -39,7 +39,7 @@ class ApptrackingController < ApplicationController
 
   def add_android
 
-    app_name = params["androidid"]
+    app_name = params["androidid"].gsub(" ","")
 
     package_url= "https://play.google.com/store/apps/details?id="+app_name+"&hl=en"
 
@@ -154,7 +154,7 @@ class ApptrackingController < ApplicationController
 
   def add_ios
 
-    app_name = params["iosid"]
+    app_name = params["iosid"].gsub(" ","")
 
     id_url= "https://itunes.apple.com/us/app/orbitz-flights-hotels-cars/id"+app_name+"?mt=8"
 

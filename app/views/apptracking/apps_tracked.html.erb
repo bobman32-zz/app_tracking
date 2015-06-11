@@ -48,7 +48,7 @@
               </a>
               </td>
               <% else %>
-            <% @all_user_apps.where({:os => "android"}).each do |app|  %>
+            <% @all_user_apps.where({:os => "android"}).all.joins(:versions).order('app_name').each do |app|  %>
                               <td ><img src="<%= app.versions.last.app_icon_url %>" width=40></td>
                 <td><%= app.versions.last.app_name %></td>
                 <td><%= app.versions.last.market %></td>
@@ -105,7 +105,7 @@
               </a>
               </td>
               <% else %>
-            <% @all_user_apps.where({:os => "ios"}).each do |app|  %>
+            <% @all_user_apps.where({:os => "ios"}).all.joins(:versions).order('app_name').each do |app|   %>
                 <td><img src="<%= app.versions.last.app_icon_url %>" width=40></td>
                 <td><%= app.versions.last.app_name %></td>
                 <td><%= app.versions.last.market %></td>

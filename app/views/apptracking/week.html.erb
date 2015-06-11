@@ -39,7 +39,7 @@
         </td>
         <td>
           <% @ios_apps.each do |app| %>
-          <% app.versions.where(:updated_date => Date.today.beginning_of_day..Date.today.end_of_day).each do |version|
+          <% app.versions.where(:updated_date => @today.beginning_of_day..@today.end_of_day).each do |version|
          %>
          <a href="/app_details/<%=app.id %>">
           <img src="<%= version.app_icon_url %>" width=40>

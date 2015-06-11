@@ -231,14 +231,14 @@ class ApptrackingController < ApplicationController
   end
   def week
 
-    @today = Date.today
-    @yesterday =Date.today-1.day
-    @twodaysago=Date.today-2.day
-    @threedaysago=Date.today-3.day
-    @fourdaysago= Date.today-4.day
-    @fivedaysago= Date.today-5.day
-    @sixdaysago= Date.today-6.day
-    @sevendaysago= Date.today-7.day
+    @today = Time.zone.now.to_date
+    @yesterday =Time.zone.now.to_date-1.day
+    @twodaysago=Time.zone.now.to_date-2.day
+    @threedaysago=Time.zone.now.to_date-3.day
+    @fourdaysago= Time.zone.now.to_date-4.day
+    @fivedaysago= Time.zone.now.to_date-5.day
+    @sixdaysago= Time.zone.now.to_date-6.day
+    @sevendaysago= Time.zone.now.to_date-7.day
 
     @android_apps= current_user.apps.where({:os => 'android'})
     @ios_apps= current_user.apps.where({:os => 'ios'})

@@ -32,8 +32,7 @@ class ApptrackingController < ApplicationController
   end
 
   def apps_tracked
-    @all_android_apps = current_user.apps.all
-    @all_ios_apps = 0
+    @all_user_apps = current_user.apps.all
 
 
   end

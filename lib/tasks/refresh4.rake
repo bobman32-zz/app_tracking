@@ -59,7 +59,7 @@ namespace :refresh4 do
           n.publisher_name = parsed_data["results"][0]["sellerName"]
           n.current_version = parsed_data["results"][0]["version"]
           n.description = parsed_data["results"][0]["description"]
-          n.updated_date = Date.today.strftime('%B %e, %Y ')
+          n.updated_date = Time.zone.now.to_date.strftime('%B %e, %Y ')
           #search API currently doesn't provide updated date, so this just uses todays date assuming this action in run daily
           n.whats_new = parsed_data["results"][0]["releaseNotes"]
           n.rating = parsed_data["results"][0]["averageUserRating"]

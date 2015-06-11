@@ -173,6 +173,8 @@ class ApptrackingController < ApplicationController
 
  def add_ios_valid
   app_name = params["iosid"]
+    @new_app = App.new
+    @new_user_app_join=Join.new
 
       if App.find_by(app_name: app_name).nil?
       @new_app= App.new

@@ -14,6 +14,18 @@ class ApptrackingController < ApplicationController
     @new_user_app_join2=Join.new
 
   end
+  def add_travel_apps
+
+      a=[1,2,3,4,5,7,8,9,10,32,28,29,38,37,51,52,53,54,32,40,21,41,55,56,57,12,11,18,14,15,13,36,16,17,19,27,30,26,31,58,59,60,61,44,34,42,43,62,63,64]
+
+      a.each do |app|
+        b=Join.new
+        b.app_id = app
+        b.user_id = current_user.id
+        b.save
+      end
+      redirect_to "/apps_tracked", :notice => "Travel Apps Added Sucessfully"
+  end
 
   def app_details
     @app = App.find(params[:app_id])
@@ -201,7 +213,7 @@ class ApptrackingController < ApplicationController
           end
       end
       render 'add_app'
-    end
+  end
 
 
   def new_ios
@@ -247,8 +259,10 @@ class ApptrackingController < ApplicationController
     @android_apps= current_user.apps.where({:os => 'android'})
     @ios_apps= current_user.apps.where({:os => 'ios'})
 
-def travel_apps
-end
+  def travel_apps
+  end
+
+
 
 
 end

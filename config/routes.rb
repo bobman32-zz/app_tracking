@@ -33,6 +33,9 @@ Rails.application.routes.draw do
 
   get("/process_new_ios/:iosid", { :controller => "apptracking", :action => "new_ios" })
 
+   get("/add_travel_apps", { :controller => "apptracking", :action => "add_travel_apps" })
+
+
 
 
   get("/app_details/:app_id", { :controller => "apptracking", :action => "app_details" })

@@ -10,7 +10,7 @@
 
 <div class="page-header">
   <h3>
-    7 Day Summary
+    10 Day Summary
   </h3>
 </div>
 
@@ -201,6 +201,77 @@
         <td>
           <% @ios_apps.each do |app| %>
           <% app.versions.where(:updated_date => @sevendaysago.beginning_of_day..@sevendaysago.end_of_day).each do |version|
+         %>
+         <a href="/app_details/<%=app.id %>">
+          <img src="<%= version.app_icon_url %>" width=40>
+          </a>
+        <% end %>
+        <%end %>
+          </td>
+      </tr>
+                  <tr>
+        <td><%= @eightdaysago.strftime('%m/%d/%y') %></td>
+          <td>
+          <% @android_apps.each do |app| %>
+          <% app.versions.where(:updated_date => @eightdaysago.beginning_of_day..@eightdaysago.end_of_day).each do |version|
+         %>
+          <a href="/app_details/<%=app.id %>">
+          <img src="<%= version.app_icon_url %>" width=40>
+          </a>
+        <% end %>
+        <%end %>
+        </td>
+        <td>
+          <% @ios_apps.each do |app| %>
+          <% app.versions.where(:updated_date => @eightdaysago.beginning_of_day..@eightdaysago.end_of_day).each do |version|
+         %>
+         <a href="/app_details/<%=app.id %>">
+          <img src="<%= version.app_icon_url %>" width=40>
+          </a>
+        <% end %>
+        <%end %>
+          </td>
+      </tr>
+            </tr>
+                  <tr>
+        <td><%= @ninedaysago.strftime('%m/%d/%y') %></td>
+          <td>
+          <% @android_apps.each do |app| %>
+          <% app.versions.where(:updated_date => @ninedaysago.beginning_of_day..@ninedaysago.end_of_day).each do |version|
+         %>
+          <a href="/app_details/<%=app.id %>">
+          <img src="<%= version.app_icon_url %>" width=40>
+          </a>
+        <% end %>
+        <%end %>
+        </td>
+        <td>
+          <% @ios_apps.each do |app| %>
+          <% app.versions.where(:updated_date => @ninedaysago.beginning_of_day..@ninedaysago.end_of_day).each do |version|
+         %>
+         <a href="/app_details/<%=app.id %>">
+          <img src="<%= version.app_icon_url %>" width=40>
+          </a>
+        <% end %>
+        <%end %>
+          </td>
+      </tr>
+            </tr>
+                  <tr>
+        <td><%= @tendaysago.strftime('%m/%d/%y') %></td>
+          <td>
+          <% @android_apps.each do |app| %>
+          <% app.versions.where(:updated_date => @tendaysago.beginning_of_day..@tendaysago.end_of_day).each do |version|
+         %>
+          <a href="/app_details/<%=app.id %>">
+          <img src="<%= version.app_icon_url %>" width=40>
+          </a>
+        <% end %>
+        <%end %>
+        </td>
+        <td>
+          <% @ios_apps.each do |app| %>
+          <% app.versions.where(:updated_date => @tendaysago.beginning_of_day..@tendaysago.end_of_day).each do |version|
          %>
          <a href="/app_details/<%=app.id %>">
           <img src="<%= version.app_icon_url %>" width=40>

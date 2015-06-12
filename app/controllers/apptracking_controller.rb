@@ -229,7 +229,7 @@ class ApptrackingController < ApplicationController
 
     redirect_to "/apps_tracked"
   end
-  def week
+  def history
 
     @today = Time.zone.now.to_date
     @yesterday =Time.zone.now.to_date-1.day
@@ -239,6 +239,10 @@ class ApptrackingController < ApplicationController
     @fivedaysago= Time.zone.now.to_date-5.day
     @sixdaysago= Time.zone.now.to_date-6.day
     @sevendaysago= Time.zone.now.to_date-7.day
+    @eightdaysago= Time.zone.now.to_date-8.day
+    @ninedaysago= Time.zone.now.to_date-9.day
+    @tendaysago= Time.zone.now.to_date-10.day
+
 
     @android_apps= current_user.apps.where({:os => 'android'})
     @ios_apps= current_user.apps.where({:os => 'ios'})

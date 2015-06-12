@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   get("/refresh_list", { :controller => "apptracking", :action => "refresh_list" })
 
-  get("/week", { :controller => "apptracking", :action => "week" })
+  get("/history", { :controller => "apptracking", :action => "history" })
 
 #android routes
 

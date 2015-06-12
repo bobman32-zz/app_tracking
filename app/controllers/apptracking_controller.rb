@@ -148,17 +148,21 @@ class ApptrackingController < ApplicationController
     app_id = a.id
 
     n=Version.new
-    n.app_name = app_bot.title
-    n.app_icon_url = app_bot.banner_icon_url
-    n.market = app_bot.category
-    n.publisher_name = app_bot.developer
-    n.current_version = app_bot.current_version
-    n.description = app_bot.description
-    n.updated_date = DateTime.parse(app_bot.updated).strftime('%B %e, %Y ')
-    n.whats_new = app_bot.whats_new
-    n.rating = app_bot.rating
-    n.app_id = app_id
+      n.app_name = app_bot.title
+      n.app_icon_url = app_bot.banner_icon_url
+      n.market = app_bot.category
+      n.publisher_name = app_bot.developer
+      n.current_version = app_bot.current_version
+      n.description = app_bot.description
+      n.updated_date = DateTime.parse(app_bot.updated).strftime('%B %e, %Y ')
+      n.whats_new = app_bot.whats_new
+      n.rating = app_bot.rating
+      n.app_id = app_id
     n.save
+
+    a.textname=n.app_name
+    a.save
+
 
     redirect_to "/apps_tracked"
 
@@ -238,6 +242,8 @@ class ApptrackingController < ApplicationController
       n.rating = parsed_data["results"][0]["averageUserRating"]
       n.app_id = app_id
       n.save
+    a.textname=n.app_name
+    a.save
 
     redirect_to "/apps_tracked"
   end

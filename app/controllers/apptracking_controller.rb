@@ -44,7 +44,7 @@ class ApptrackingController < ApplicationController
   end
 
   def apps_tracked
-    @all_user_apps = current_user.apps.order(:app_name).all
+    @all_user_apps = current_user.apps.order(:textname).all
 
 
   end

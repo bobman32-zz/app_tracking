@@ -5,13 +5,17 @@ require 'rubygems'
 require 'market_bot'
 require 'date'
 require "uri"
+require 'rubygems'
+
 
 class ApptrackingController < ApplicationController
+
 
   def add_app
     @new_app = App.new
     @new_user_app_join=Join.new
     @new_user_app_join2=Join.new
+
 
   end
   def add_travel_apps

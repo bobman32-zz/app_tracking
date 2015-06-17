@@ -4,7 +4,7 @@ require 'json'
 namespace :refresh1 do
   desc "refresh app lists"
   task app_refresh: :environment do
-    #refresh Android apps
+    # refresh Android apps
 
     a=App.where({:os=> 'android'})
       a.each do |app|
@@ -37,9 +37,50 @@ namespace :refresh1 do
             n.rating = app_bot.rating
             n.app_id = app_id
             n.save
+
+              if n.current_version == 'Varies with device'
+              app_id=n.app_id
+              d = App.find(app_id)
+              package_name = d.app_name
+              doc = Nokogiri::HTML(open("http://downloader-apk.com/?id="+package_name))
+                versions = doc.css('.baseinfo').text
+                input_string = versions.delete(' ').delete("\n")
+                str1_markerstring = "lastversionofthisappis"
+                str2_markerstring = "thatrelease"
+                version= input_string[/#{str1_markerstring}(.*?)#{str2_markerstring}/m, 1]
+                puts version
+                unless version.nil?
+                  record.current_version = version
+                  record.save
+                end
+              end
+
           end
         end
     end
+
+
+  # b=Version.where({:current_version => 'Varies with device'})
+  # b.each do |record|
+
+  #   app_id=record.app_id
+  #   puts app_id
+  #   d = App.find(app_id)
+  #   package_name = d.app_name
+  #   puts package_name
+  #   doc = Nokogiri::HTML(open("http://downloader-apk.com/?id="+package_name))
+  #     versions = doc.css('.baseinfo').text
+  #     input_string = versions.delete(' ').delete("\n")
+  #     str1_markerstring = "lastversionofthisappis"
+  #     str2_markerstring = "thatrelease"
+  #     version= input_string[/#{str1_markerstring}(.*?)#{str2_markerstring}/m, 1]
+  #     puts version
+  #     if version != nil
+  #       record.current_version = version
+  #       record.save
+  #     end
+
+  #   end
 
     #refresh ios apps
 

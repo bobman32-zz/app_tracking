@@ -38,9 +38,24 @@ namespace :refresh4 do
             n.app_id = app_id
             n.save
 
-          else
+              if n.current_version == 'Varies with device'
+              app_id=n.app_id
+              d = App.find(app_id)
+              package_name = d.app_name
+              doc = Nokogiri::HTML(open("http://downloader-apk.com/?id="+package_name))
+                versions = doc.css('.baseinfo').text
+                input_string = versions.delete(' ').delete("\n")
+                str1_markerstring = "lastversionofthisappis"
+                str2_markerstring = "thatrelease"
+                version= input_string[/#{str1_markerstring}(.*?)#{str2_markerstring}/m, 1]
+                puts version
+                unless version.nil?
+                  record.current_version = version
+                  record.save
+                end
+              end
+
           end
-        else
         end
     end
 

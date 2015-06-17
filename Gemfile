@@ -4,6 +4,7 @@ gem 'devise'
 gem 'nokogiri'
 gem 'typhoeus'
 gem 'market_bot'
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'

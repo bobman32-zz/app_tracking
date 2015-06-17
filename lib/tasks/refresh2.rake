@@ -49,8 +49,8 @@ namespace :refresh2 do
                 version= input_string[/#{str1_markerstring}(.*?)#{str2_markerstring}/m, 1]
                 puts version
                 unless version.nil?
-                  record.current_version = version
-                  record.save
+                  n.current_version = version
+                  n.save
                 end
               end
 

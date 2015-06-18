@@ -50,6 +50,7 @@ namespace :refresh1 do
                 version= input_string[/#{str1_markerstring}(.*?)#{str2_markerstring}/m, 1]
                 puts version
                 unless version.nil?
+                  # || version.empty?
                   n.current_version = version
                   n.save
                 end

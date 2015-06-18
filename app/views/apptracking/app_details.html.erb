@@ -25,7 +25,12 @@ button.play-button {
   <h3>
     <img src="<%= @app.versions.last.app_icon_url %>" width=80><%= @app.versions.last.app_name %>
   </h3>
-  <p>Tracking history begins once an app is first added to database, either by you or another user</p>
+  <p><i class="fa fa-info-circle"></i> Tracking history begins once an app is first added to database, either by you or another user</p>
+  <% if @app.os == "android" %>
+   <p><i class="fa fa-info-circle"></i> A new Android version record is created whenever an app publisher modifies the APK configuration. This includes staged rollout actions and changing supported devices/operating systems. This is why you might see a sequence of several records where the version and release notes are the same</p>
+   <% else %>
+   <p><i class="fa fa-info-circle"></i> *iOS "Updated Date" is not available in the API response so it is set based on when the version record is created. Since all Apps are processed through the API daily this means the date will typically be accurate, however for newly added apps the "Updated Date" may not be accurate</p>
+   <% end %>
 </div>
 
 <div class='container'>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150612223353) do
+ActiveRecord::Schema.define(version: 20150618000204) do
 
   create_table "apps", force: :cascade do |t|
     t.string   "app_name"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20150612223353) do
     t.datetime "updated_at", null: false
     t.integer  "user_id"
     t.string   "textname"
+    t.string   "url"
   end
 
   create_table "joins", force: :cascade do |t|

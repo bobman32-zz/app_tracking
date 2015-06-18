@@ -23,7 +23,7 @@ button.play-button {
 
 <div class="page-header">
   <h3>
-    <img src="<%= @app.versions.last.app_icon_url %>" width=80><%= @app.versions.last.app_name %>
+    <img src="<%= @app.versions.last.app_icon_url %>" width=80> <%= @app.versions.last.app_name %>
   </h3>
   <p><i class="fa fa-info-circle"></i> Tracking history begins once an app is first added to database, either by you or another user</p>
   <% if @app.os == "android" %>

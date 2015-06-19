@@ -176,19 +176,28 @@ class ApptrackingController < ApplicationController
 
     app_name = params["iosid"].gsub(" ","")
 
-    id_url= "https://itunes.apple.com/us/app/orbitz-flights-hotels-cars/id"+app_name+"?mt=8"
+    id_url= "https://itunes.apple.com/lookup?id="+app_name
 
+##first checks to see if the entered id is so off that the API won't even return an error
     uri = URI.parse(id_url)
     req = Net::HTTP.new(uri.host, uri.port)
     req.use_ssl = true
     req.verify_mode = OpenSSL::SSL::VERIFY_NONE
     res = req.get(uri.request_uri)
-     if res.code =="200"
-        redirect_to "/add_ios_valid/"+app_name
+     unless res.code =="200"
+        redirect_to "/add_app", :alert => "Invalid ITunes App ID" and return
       else
-        redirect_to "/add_app", :alert => "Invalid ITunes App ID"
 
+##then checks to see if the ID returns valid data
+    parsed_data = JSON.parse(open("https://itunes.apple.com/lookup?id="+app_name).read)
+       if parsed_data["results"][0].nil?
+        redirect_to "/add_app", :alert => "Invalid ITunes App ID"
+        else
+        redirect_to "/add_ios_valid/"+app_name
       end
+  end
+
+
   end
 
  def add_ios_valid

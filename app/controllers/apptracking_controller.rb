@@ -106,21 +106,7 @@ class ApptrackingController < ApplicationController
       render 'add_app'
     end
 
-# Refactor with this code below
 
- # @new_app = App.find_by(:app_name => app_name)
- # if @app == nil
- #   @app = App.new
- #   @app.app_name = app_name
- #   @app.os = "android"
- #   @app.save
- # end
-
- # @new_user_app_join = Join.new
- # @new_user_app_join.app_id = @app.id
- # @new_user_app_join.user_id = current_user.id
-
- # if @new_user_app_joine.save
 
 
   def new_android

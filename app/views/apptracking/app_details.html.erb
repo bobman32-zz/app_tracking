@@ -14,6 +14,9 @@ button.play-button {
 .table th {
    text-align: center;
 }
+.centered {
+   text-align: center;
+}
 .table tbody tr td {
    vertical-align: middle;
 }
@@ -51,16 +54,16 @@ button.play-button {
       <tbody>
       <% @app_versions.sort_by(&:created_at).reverse.each do |version| %>
         <tr>
-          <td>
+          <td class='centered'>
             <%= version.updated_date.strftime('%B %e, %Y ') %>
           </td>
-          <td>
+          <td class='centered'>
           <%= version.current_version %>
           </td>
           <td>
             <%=  sanitize version.whats_new %>
           </td>
-          <td>
+          <td class='centered'>
             <%= version.rating %>
           </td>
         </tr>

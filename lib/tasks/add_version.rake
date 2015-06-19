@@ -4,7 +4,7 @@ namespace :add_version do
 
     App.all.each do |app|
       a= app.versions.last
-      if a.current_version == 'Varies with device'
+      if a.current_version == 'Varies with device' || ''
           package_name = app.app_name
           doc = Nokogiri::HTML(open("http://downloader-apk.com/?id="+package_name))
             versions = doc.css('.baseinfo').text

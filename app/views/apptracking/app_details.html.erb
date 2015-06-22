@@ -28,6 +28,13 @@ button.play-button {
   <h3>
     <img src="<%= @app.versions.last.app_icon_url %>" width=80> <%= @app.versions.last.app_name %>
   </h3>
+
+  <% if @app.os == 'android' %>
+      <a href="https://play.google.com/store/apps/details?id=<%= @app.app_name %>">View Store Listing</a>
+  <% elsif @app.os == 'ios' %>
+      <a href="https://itunes.apple.com/us/app/id<%= @app.app_name %>">View Store Listing</a>
+  <% end %>
+
   <p><i class="fa fa-info-circle"></i> Tracking history begins once an app is first added to database, either by you or another user</p>
   <% if @app.os == "android" %>
    <p><i class="fa fa-info-circle"></i> A new Android version record is created whenever an app publisher modifies the APK configuration. This includes staged rollout actions and changing supported devices/operating systems. This is why you might see a sequence of several records where the version and release notes are the same</p>

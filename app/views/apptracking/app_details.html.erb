@@ -21,19 +21,14 @@ button.play-button {
    vertical-align: middle;
 }
 
+
 </style>
 
 
 <div class="page-header">
   <h3>
     <img src="<%= @app.versions.last.app_icon_url %>" width=80> <%= @app.versions.last.app_name %>
-  </h3>
-
-  <% if @app.os == 'android' %>
-      <a href="https://play.google.com/store/apps/details?id=<%= @app.app_name %>">View Store Listing</a>
-  <% elsif @app.os == 'ios' %>
-      <a href="https://itunes.apple.com/us/app/id<%= @app.app_name %>">View Store Listing</a>
-  <% end %>
+      </h3>
 
   <p><i class="fa fa-info-circle"></i> Tracking history begins once an app is first added to database, either by you or another user</p>
   <% if @app.os == "android" %>
@@ -41,8 +36,16 @@ button.play-button {
    <% else %>
    <p><i class="fa fa-info-circle"></i> *iOS "Updated Date" is not available in the API response so it is set based on when the version record is created. Since all Apps are processed through the API daily this means the date will typically be accurate, however for newly added apps the "Updated Date" may not be accurate</p>
    <% end %>
-</div>
 
+  <% if @app.os == 'android' %>
+      <a href="https://play.google.com/store/apps/details?id=<%= @app.app_name %>" target="_blank">
+      <img src='http://thebankofwaynesboro.com/wp-content/uploads/2014/12/android-app-on-google-play-logo.png' width=100>
+      </a>
+  <% elsif @app.os == 'ios' %>
+      <a href="https://itunes.apple.com/us/app/id<%= @app.app_name %>" target="_blank">    <img src='http://www.paraglidingmap.com/images/available-on-the-app-store.png'  width=100>
+      </a>
+  <% end %>
+</div>
 <div class='container'>
   <div class='row'>
 

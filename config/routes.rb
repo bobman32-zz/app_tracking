@@ -40,6 +40,6 @@ Rails.application.routes.draw do
 
   get("/app_details/:app_id", { :controller => "apptracking", :action => "app_details" })
 
-root 'apptracking#apps_tracked'
+root 'apptracking#history'
 
 end
